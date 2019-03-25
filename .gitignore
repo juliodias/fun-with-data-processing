@@ -1,6 +1,7 @@
+### Miscellaneous ###
 .mvn/
 HELP.md
-/target/
+application-producer/target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
