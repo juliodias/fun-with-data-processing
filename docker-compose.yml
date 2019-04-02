@@ -1,0 +1,25 @@
+version: '3'
+services:
+  database:
+    container_name: data_processing_mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: data_processing
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+
+  application_producer:
+    container_name: data_processing_producer
+    build: application-producer/
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+
+volumes:
+  mysql:
