@@ -16,14 +16,20 @@ public class CityService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CityService.class);
 
-    @Autowired
     private CityRepository cityRepository;
+    private FileUtils fileUtils;
+
+    @Autowired
+    public CityService(CityRepository cityRepository, FileUtils fileUtils) {
+        this.cityRepository = cityRepository;
+        this.fileUtils = fileUtils;
+    }
 
     @PostConstruct
     public void populateCities() {
         LOG.info("Starting process of populate cities...");
         try {
-            Stream<City> cities = FileUtils.getCities();
+            Stream<City> cities = fileUtils.getCities();
             cities.forEach(city -> cityRepository.save(city));
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);

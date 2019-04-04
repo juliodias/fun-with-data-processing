@@ -2,21 +2,25 @@ package com.juliodias.producer.util;
 
 import com.google.gson.Gson;
 import com.juliodias.producer.model.City;
-import org.springframework.util.ResourceUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+@Component
 public class FileUtils {
 
-    private static final String CITIES_FILE = "classpath:cities.json";
+    @Value("classpath:cities.json")
+    private Resource resource;
 
-    public static Stream<City> getCities() throws Exception {
-        File citiesFile = ResourceUtils.getFile(CITIES_FILE);
+    public Stream<City> getCities() throws Exception {
+        InputStream  inputStream = resource.getInputStream();
 
-        FileReader fileReader = new FileReader(citiesFile);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
         return convertCitiesFrom(bufferedReader);
     }
