@@ -5,7 +5,6 @@ import com.juliodias.producer.repository.CityRepository;
 import com.juliodias.producer.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -16,10 +15,9 @@ public class CityService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CityService.class);
 
-    private CityRepository cityRepository;
-    private FileUtils fileUtils;
+    private final CityRepository cityRepository;
+    private final FileUtils fileUtils;
 
-    @Autowired
     public CityService(CityRepository cityRepository, FileUtils fileUtils) {
         this.cityRepository = cityRepository;
         this.fileUtils = fileUtils;
